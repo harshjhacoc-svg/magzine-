@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A Letter for My Bhondu 💌</title>
+
+<style>
+:root {
+  --pink: #f3bfd1;
+  --pink-dark: #d681a1;
+  --green: #a8c3a0;
+  --green-dark: #627d5b;
+  --cream: #fffdf5;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Trebuchet MS", sans-serif;
+  background-color: #fff8f7;
+  background-image:
+    linear-gradient(#edb9ca35 1px, transparent 1px),
+    linear-gradient(90deg, #a8c3a035 1px, transparent 1px);
+  background-size: 35px 35px;
+  color: var(--green-dark);
+  overflow-x: hidden;
+}
+
+.page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 35px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+  animation: fadeIn 1s ease;
+}
+
+.decorations {
+  font-size: 23px;
+  letter-spacing: 10px;
+}
+
+.tag {
+  background: var(--cream);
+  border: 1px solid var(--green);
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--green-dark);
+}
+
+h1 {
+  font-family: "Segoe Print", "Comic Sans MS", cursive;
+  font-size: clamp(30px, 8vw, 43px);
+  line-height: 1.35;
+  color: var(--green-dark);
+}
+
+h1 span {
+  color: var(--pink-dark);
+}
+
+.subtitle {
+  font-family: cursive;
+  font-size: 17px;
+  color: var(--pink-dark);
+  margin-top: -12px;
+}
+
+/* ENVELOPE */
+
+.envelope-button {
+  position: relative;
+  width: min(90vw, 350px);
+  height: 290px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  margin: 15px 0;
+  transition: transform .3s ease;
+  filter: drop-shadow(0 10px 12px #0002);
+}
+
+.envelope-button:hover {
+  transform: translateY(-5px) rotate(-1deg);
+}
+
+.envelope-button:focus-visible {
+  outline: 3px solid var(--green-dark);
+  outline-offset: 8px;
+  border-radius: 12px;
+}
+
+.paper {
+  position: absolute;
+  top: 10px;
+  left: 7%;
+  width: 86%;
+  height: 240px;
+  background: var(--cream);
+  border: 2px solid var(--pink);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  transform: rotate(-3deg);
+}
+
+.paper-heart {
+  color: var(--pink-dark);
+  font-size: 43px;
+}
+
+.paper-title {
+  font-family: cursive;
+  font-size: 21px;
+  color: var(--green-dark);
+}
+
+.tap-text {
+  font-size: 14px;
+  color: var(--pink-dark);
+}
+
+.envelope-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 190px;
+  background: #e9b2c6;
+  border: 2px solid #d995b0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.envelope-body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #f4cbd9;
+  clip-path: polygon(0 0, 50% 65%, 100% 0);
+}
+
+.envelope-body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #dfa0b8;
+  clip-path: polygon(0 100%, 50% 42%, 100% 100%);
+}
+
+.seal {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 66px;
+  transform: translateX(-50%);
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #fff0f5;
+  border: 2px solid #d995b0;
+  display: grid;
+  place-items: center;
+  font-size: 29px;
+}
+
+.footer {
+  margin-top: auto;
+  font-family: cursive;
+  color: var(--green-dark);
+  background: #fffdf5dd;
+  border-radius: 25px;
+  padding: 12px 20px;
+}
+
+/* LOVE LETTER POPUP */
+
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: #45534099;
+  padding: 16px;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn .3s ease;
+}
+
+.overlay.open {
+  display: flex;
+}
+
+.letter {
+  position: relative;
+  width: min(100%, 510px);
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 35px 25px;
+  background-color: #fffdf8;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 31px,
+    #e8dce0 32px
+  );
+  border: 2px solid var(--pink);
+  border-radius: 12px 22px 12px 22px;
+  box-shadow: 0 15px 45px #0003;
+  text-align: left;
+  animation: letterOpen .5s ease;
+}
+
+.close {
+  position: sticky;
+  float: right;
+  top: 0;
+  margin: -20px -10px 0 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--pink);
+  background: #fff0f5;
+  color: var(--pink-dark);
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.letter-decor {
+  text-align: center;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.letter h2 {
+  font-family: cursive;
+  font-size: 23px;
+  color: var(--pink-dark);
+  margin-bottom: 18px;
+}
+
+.letter p {
+  font-family: "Segoe Print", "Comic Sans MS", cursive;
+  color: var(--green-dark);
+  font-size: 15px;
+  line-height: 2;
+  margin-bottom: 16px;
+}
+
+.letter .signoff {
+  text-align: right;
+  color: var(--pink-dark);
+  margin-top: 25px;
+}
+
+.letter-bottom {
+  text-align: center;
+  font-size: 25px;
+  margin-top: 15px;
+}
+
+/* FLOATING HEARTS */
+
+.heart {
+  position: fixed;
+  bottom: -30px;
+  z-index: 20;
+  pointer-events: none;
+  color: var(--pink-dark);
+  animation: floatUp 5s linear forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes letterOpen {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0);
+    opacity: 0;
+  }
+  15% { opacity: 1; }
+  100% {
+    transform: translateY(-110vh) rotate(25deg);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 2 -->
+
+<main class="page">
+
+  <div class="decorations">🌷 🦋 🌿 🌸</div>
+
+  <div class="tag">♡ OUR LITTLE LOVE STORY ♡</div>
+
+  <h1>
+    A letter for<br>
+    <span>my bhondu</span> 💌
+  </h1>
+
+  <p class="subtitle">a little something, just for you ♡</p>
+
+  <button
+    class="envelope-button"
+    id="openLetter"
+    aria-label="Tap to open your love letter"
+  >
+
+    <div class="paper">
+      <span class="paper-heart">♡</span>
+      <span class="paper-title">To my favourite person</span>
+      <span class="tap-text">tap to open ✧</span>
+    </div>
+
+    <div class="envelope-body"></div>
+
+    <div class="seal">💗</div>
+
+  </button>
+
+  <div class="decorations">♡ ✿ ♡ ✿ ♡</div>
+
+  <p class="footer">
+    made with love, just for you 🦋
+  </p>
+
+</main>
+
+
+<!-- LETTER THAT OPENS ON TAP -->
+
+<div class="overlay" id="letterOverlay">
+
+  <article
+    class="letter"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="letterTitle"
+  >
+
+    <button
+      class="close"
+      id="closeLetter"
+      aria-label="Close letter"
+    >×</button>
+
+    <div class="letter-decor">🌷 ✿ 🌿</div>
+
+    <h2 id="letterTitle">My dearest bhondu,</h2>
+
+    <p>You and me forever 😙</p>
+
+    <p>
+      I made this little corner of the internet just for us.
+      A tiny place to keep our memories, my favourite things
+      about you, and all the words I sometimes don't know
+      how to say.
+    </p>
+
+    <p>
+      No matter how ordinary a day is, you have a way of
+      making it feel special. Thank you for being you,
+      for being my person, and for giving me so many
+      little moments to keep close to my heart.
+    </p>
+
+    <p>
+      This is only the beginning of our little magazine.
+      I hope every page makes you smile, and that whenever
+      you come back here, you remember how loved you are. ♡
+    </p>
+
+    <p class="signoff">
+      Forever yours,<br>
+      your Nandu ♡
+    </p>
+
+    <div class="letter-bottom">🦋 💗 🦋</div>
+
+  </article>
+
+</div>
+
+
+<script>
+const overlay = document.getElementById("letterOverlay");
+const openButton = document.getElementById("openLetter");
+const closeButton = document.getElementById("closeLetter");
+
+function makeHearts(count = 12) {
+  for (let i = 0; i < count; i++) {
+    setTimeout(() => {
+      const heart = document.createElement("span");
+
+      heart.className = "heart";
+      heart.textContent = Math.random() > 0.5 ? "♡" : "♥";
+      heart.style.left = Math.random() * 95 + "vw";
+      heart.style.fontSize = (16 + Math.random() * 20) + "px";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 5000);
+    }, i * 100);
+  }
+}
+
+function openLetter() {
+  overlay.classList.add("open");
+  makeHearts();
+  closeButton.focus();
+}
+
+function closeLetter() {
+  overlay.classList.remove("open");
+  openButton.focus();
+}
+
+openButton.addEventListener("click", openLetter);
+closeButton.addEventListener("click", closeLetter);
+
+overlay.addEventListener("click", function(event) {
+  if (event.target === overlay) {
+    closeLetter();
+  }
+});
+
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape" && overlay.classList.contains("open")) {
+    closeLetter();
+  }
+});
+</script>
+
+</body>
+</html>
