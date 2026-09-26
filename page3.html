@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Answer Some Questions - BBG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;1,500&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink-dark:#d98a92;
+    --pink-mid:#e9a6ab;
+    --pink-light:#f6dede;
+    --cream:#fdf6ee;
+    --text-pink:#e08e93;
+    --strawberry:#e8746b;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    font-family:'Poppins', sans-serif;
+    background-color:var(--pink-light);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(217,138,146,0.35) 0px, rgba(217,138,146,0.35) 60px, transparent 60px, transparent 120px),
+      repeating-linear-gradient(90deg, rgba(217,138,146,0.35) 0px, rgba(217,138,146,0.35) 60px, transparent 60px, transparent 120px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+  .wrap{
+    width:100%;
+    max-width:480px;
+  }
+  .banner{
+    background:rgba(180,120,128,0.55);
+    color:var(--cream);
+    text-align:center;
+    padding:22px 16px;
+    border-radius:6px;
+    font-family:'Fraunces', serif;
+    margin-bottom:26px;
+  }
+  .banner h1{
+    margin:0;
+    font-size:1.6rem;
+    font-weight:500;
+    letter-spacing:1px;
+  }
+  .banner span{
+    display:block;
+    font-size:1.2rem;
+    margin-top:4px;
+    font-style:italic;
+  }
+  .card{
+    background:var(--cream);
+    border:3px solid var(--strawberry);
+    border-radius:18px;
+    padding:28px 24px;
+    display:none;
+    animation:fade .35s ease;
+  }
+  .card.active{display:block;}
+  @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+  .card h2{
+    color:var(--text-pink);
+    font-size:1.3rem;
+    margin:0 0 20px;
+  }
+  .option{
+    width:100%;
+    text-align:left;
+    background:var(--pink-light);
+    border:none;
+    border-radius:10px;
+    padding:22px 18px;
+    margin-bottom:14px;
+    font-family:'Poppins', sans-serif;
+    font-weight:600;
+    color:var(--pink-mid);
+    font-size:1rem;
+    cursor:pointer;
+    transition:.2s;
+  }
+  .option:hover{background:#f0d3d3;}
+  .option.selected{
+    background:var(--strawberry);
+    color:#fff;
+  }
+  .next-btn{
+    width:100%;
+    background:var(--pink-mid);
+    color:#fff;
+    border:none;
+    border-radius:30px;
+    padding:14px;
+    font-family:'Poppins', sans-serif;
+    font-weight:700;
+    font-size:1rem;
+    letter-spacing:1px;
+    cursor:pointer;
+    opacity:.5;
+    pointer-events:none;
+    transition:.2s;
+  }
+  .next-btn.ready{
+    opacity:1;
+    pointer-events:auto;
+    background:var(--strawberry);
+  }
+  .next-btn:hover.ready{background:#d9635a;}
+  .footnote{
+    text-align:center;
+    color:var(--pink-mid);
+    font-size:.7rem;
+    margin-top:10px;
+  }
+  .end-card{
+    text-align:center;
+  }
+  .end-card h2{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:1.7rem;
+    color:var(--text-pink);
+    margin-bottom:8px;
+  }
+  .end-card p{
+    color:var(--pink-mid);
+    margin-bottom:26px;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="banner">
+    <h1>ANSWER SOME QUESTIONS</h1>
+    <span>BBG &lt;333</span>
+  </div>
+
+  <!-- Question 1 -->
+  <div class="card active" data-card="1">
+    <h2>Who made the first move?</h2>
+    <button class="option">YOU</button>
+    <button class="option">ME</button>
+    <button class="next-btn">Next</button>
+    <p class="footnote">Your Canva profile name won't be shared</p>
+  </div>
+
+  <!-- Question 2 -->
+  <div class="card" data-card="2">
+    <h2>Who is more freaky??</h2>
+    <button class="option">YOU</button>
+    <button class="option">ME</button>
+    <button class="next-btn">Next</button>
+    <p class="footnote">Your Canva profile name won't be shared</p>
+  </div>
+
+  <!-- Question 3 -->
+  <div class="card" data-card="3">
+    <h2>Who is more funny?</h2>
+    <button class="option">YOU</button>
+    <button class="option">ME</button>
+    <button class="next-btn">Next</button>
+    <p class="footnote">Your Canva profile name won't be shared</p>
+  </div>
+
+  <!-- Question 4 -->
+  <div class="card" data-card="4">
+    <h2>Who loves more?</h2>
+    <button class="option">YOU</button>
+    <button class="option">ME</button>
+    <button class="option">BOTH</button>
+    <button class="next-btn">Next</button>
+    <p class="footnote">Your Canva profile name won't be shared</p>
+  </div>
+
+  <!-- End card -->
+  <div class="card end-card" data-card="5">
+    <h2>The end of the questions!!!</h2>
+    <p>now next ♡</p>
+    <button class="next-btn ready" onclick="window.location.href='page4.html'">Next</button>
+  </div>
+</div>
+
+<script>
+  const cards = document.querySelectorAll('.card');
+
+  cards.forEach((card, idx) => {
+    const options = card.querySelectorAll('.option');
+    const nextBtn = card.querySelector('.next-btn');
+    if (!nextBtn) return;
+
+    options.forEach(opt => {
+      opt.addEventListener('click', () => {
+        options.forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        nextBtn.classList.add('ready');
+      });
+    });
+
+    if (!card.classList.contains('end-card')) {
+      nextBtn.addEventListener('click', () => {
+        if (!nextBtn.classList.contains('ready')) return;
+        card.classList.remove('active');
+        const nextCard = cards[idx + 1];
+        if (nextCard) nextCard.classList.add('active');
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
