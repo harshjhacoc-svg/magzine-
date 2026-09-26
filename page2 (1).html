@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A Little Letter for You ♡</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Sacramento&family=Quicksand:wght@400;500;600&family=Fraunces:ital,wght@0,500;1,500&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --pink: #ed9fc2;
+    --light-pink: #fff0f5;
+    --green: #c9f4ad;
+    --dark-green: #718d63;
+    --ink: #75545f;
+
+    --q-pink-dark:#d98a92;
+    --q-pink-mid:#e9a6ab;
+    --q-pink-light:#f6dede;
+    --q-cream:#fdf6ee;
+    --q-text-pink:#e08e93;
+    --q-strawberry:#e8746b;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: #fff9fc;
+    background-image:
+        linear-gradient(90deg, #dff3d8 1px, transparent 1px),
+        linear-gradient(#fce5ef 1px, transparent 1px);
+    background-size: 76px 76px;
+    color: var(--ink);
+    font-family: 'Patrick Hand', cursive;
+}
+
+/* Tiny hearts in the background */
+
+.hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+        radial-gradient(ellipse at center, #f4a7c5 0 5px, transparent 6px);
+    background-size: 76px 76px;
+    opacity: 0.8;
+}
+
+/* Main page */
+
+.page {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    padding: 55px 18px 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Title banner */
+
+.title-wrap {
+    position: relative;
+    width: min(100%, 530px);
+    margin: 25px auto 30px;
+}
+
+.title-banner {
+    position: relative;
+    background: #eaa0c2;
+    color: white;
+    padding: 23px 18px;
+    text-align: center;
+    transform: rotate(-1deg);
+    border-radius: 4px 12px 5px 10px;
+    box-shadow: 0 4px 0 #e8b6ca;
+    clip-path: polygon(
+        2% 4%, 98% 0, 100% 20%, 97% 38%,
+        100% 60%, 97% 97%, 3% 100%,
+        0 80%, 3% 60%, 0 35%
+    );
+}
+
+.title-banner h1 {
+    font-family: 'Sacramento', cursive;
+    font-weight: normal;
+    font-size: clamp(36px, 8vw, 55px);
+    line-height: 1.2;
+}
+
+.title-banner p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-top: 8px;
+    text-transform: uppercase;
+}
+
+/* Leafy vines */
+
+.vine {
+    position: absolute;
+    width: 100%;
+    height: 42px;
+    left: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.vine.top {
+    top: -27px;
+}
+
+.vine.bottom {
+    bottom: -29px;
+    transform: scaleY(-1);
+}
+
+.vine svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+/* Diary paper */
+
+.diary {
+    width: min(100%, 570px);
+    position: relative;
+    padding: 30px 27px 45px;
+    background: rgba(255, 253, 253, 0.89);
+    border: 1px solid #f6e4eb;
+    border-radius: 3px;
+    box-shadow: 0 8px 25px #caa5b31c;
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 34px,
+        #f5dce7 35px
+    );
+}
+
+.diary::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 21px;
+    width: 1px;
+    background: #f2c6d8;
+}
+
+.date {
+    text-align: right;
+    color: #b58b9a;
+    font-size: 16px;
+    margin-bottom: 17px;
+}
+
+.greeting {
+    font-family: 'Sacramento', cursive;
+    font-size: 35px;
+    color: #c76f98;
+    margin-bottom: 10px;
+}
+
+.letter-text {
+    font-size: 20px;
+    line-height: 35px;
+    white-space: pre-line;
+}
+
+.letter-text p {
+    margin-bottom: 15px;
+}
+
+.signature {
+    font-family: 'Sacramento', cursive;
+    font-size: 34px;
+    color: #c76f98;
+    text-align: right;
+    line-height: 1.2;
+    margin-top: 20px;
+}
+
+.little-hearts {
+    text-align: center;
+    font-size: 21px;
+    letter-spacing: 8px;
+    margin-top: 25px;
+}
+
+/* Next button (letter) */
+
+.next-btn-wrap {
+    width: min(100%, 570px);
+    text-align: center;
+    margin-top: 30px;
+    position: relative;
+    z-index: 1;
+}
+
+.next-btn {
+    display: inline-block;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: white;
+    background: var(--pink);
+    padding: 12px 28px;
+    border: none;
+    border-radius: 30px;
+    text-decoration: none;
+    box-shadow: 0 4px 0 #d47ea8;
+    transition: transform 0.15s ease;
+    cursor: pointer;
+}
+
+.next-btn:hover {
+    transform: translateY(-2px);
+}
+
+.next-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 0 #d47ea8;
+}
+
+/* Bottom green hills */
+
+.hills {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hills svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Bottom flower border */
+
+.flower-border {
+    position: fixed;
+    z-index: 2;
+    bottom: -17px;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 8px;
+    color: #e7a5c2;
+    font-size: clamp(40px, 8vw, 76px);
+    text-shadow: 1px 2px 0 white;
+}
+
+.flower-border span:nth-child(2) {
+    font-size: 32px;
+    margin-bottom: 22px;
+}
+
+.flower-border span:nth-child(3) {
+    font-size: 50px;
+    margin-bottom: 5px;
+}
+
+.flower-border span:nth-child(4) {
+    font-size: 34px;
+    margin-bottom: 25px;
+}
+
+/* Floating hearts */
+
+.float-heart {
+    position: fixed;
+    bottom: -30px;
+    z-index: 3;
+    pointer-events: none;
+    color: #ed9fc2;
+    animation: floatUp 8s linear forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-110vh) rotate(25deg);
+        opacity: 0;
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 480px) {
+    .page {
+        padding: 45px 12px 120px;
+    }
+
+    .diary {
+        padding: 25px 20px 35px 30px;
+    }
+
+    .letter-text {
+        font-size: 18px;
+        line-height: 33px;
+    }
+
+    .diary::before {
+        left: 17px;
+    }
+
+    .title-wrap {
+        margin-top: 20px;
+    }
+
+    .hills {
+        height: 100px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .float-heart {
+        animation: none;
+        display: none;
+    }
+}
+
+/* ================= Questions view ================= */
+
+#view-letter, #view-questions {
+    width: 100%;
+}
+
+#view-questions {
+    display: none;
+}
+
+body.questions-mode {
+    background-color: var(--q-pink-light);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(217,138,146,0.35) 0px, rgba(217,138,146,0.35) 60px, transparent 60px, transparent 120px),
+      repeating-linear-gradient(90deg, rgba(217,138,146,0.35) 0px, rgba(217,138,146,0.35) 60px, transparent 60px, transparent 120px);
+}
+
+body.questions-mode .hearts,
+body.questions-mode .hills,
+body.questions-mode .flower-border {
+    display: none;
+}
+
+.q-wrap{
+    width:100%;
+    max-width:480px;
+    margin: 40px auto;
+    font-family: 'Poppins', sans-serif;
+}
+.q-banner{
+    background:rgba(180,120,128,0.55);
+    color:var(--q-cream);
+    text-align:center;
+    padding:22px 16px;
+    border-radius:6px;
+    font-family:'Fraunces', serif;
+    margin-bottom:26px;
+}
+.q-banner h1{
+    margin:0;
+    font-size:1.6rem;
+    font-weight:500;
+    letter-spacing:1px;
+}
+.q-banner span{
+    display:block;
+    font-size:1.2rem;
+    margin-top:4px;
+    font-style:italic;
+}
+.q-card{
+    background:var(--q-cream);
+    border:3px solid var(--q-strawberry);
+    border-radius:18px;
+    padding:28px 24px;
+    display:none;
+    animation:qfade .35s ease;
+}
+.q-card.active{display:block;}
+@keyframes qfade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+.q-card h2{
+    color:var(--q-text-pink);
+    font-size:1.3rem;
+    margin:0 0 20px;
+    font-family: 'Poppins', sans-serif;
+}
+.q-option{
+    width:100%;
+    text-align:left;
+    background:var(--q-pink-light);
+    border:none;
+    border-radius:10px;
+    padding:22px 18px;
+    margin-bottom:14px;
+    font-family:'Poppins', sans-serif;
+    font-weight:600;
+    color:var(--q-pink-mid);
+    font-size:1rem;
+    cursor:pointer;
+    transition:.2s;
+}
+.q-option:hover{background:#a8d8a0; color:#fff;}
+.q-option.selected{
+    background:#6fae74;
+    color:#fff;
+}
+.q-next-btn{
+    width:100%;
+    background:var(--q-pink-mid);
+    color:#fff;
+    border:none;
+    border-radius:30px;
+    padding:14px;
+    font-family:'Poppins', sans-serif;
+    font-weight:700;
+    font-size:1rem;
+    letter-spacing:1px;
+    cursor:pointer;
+    opacity:.5;
+    pointer-events:none;
+    transition:.2s;
+}
+.q-next-btn.ready{
+    opacity:1;
+    pointer-events:auto;
+    background:var(--q-strawberry);
+}
+.q-next-btn:hover.ready{background:#d9635a;}
+.q-footnote{
+    text-align:center;
+    color:var(--q-pink-mid);
+    font-size:.7rem;
+    margin-top:10px;
+}
+.q-end-card{
+    text-align:center;
+}
+.q-end-card h2{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:1.7rem;
+    color:var(--q-text-pink);
+    margin-bottom:8px;
+}
+.q-end-card p{
+    color:var(--q-pink-mid);
+    margin-bottom:26px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="hearts"></div>
+
+<!-- Soft green hills at the bottom -->
+<div class="hills">
+    <svg viewBox="0 0 1000 180" preserveAspectRatio="none">
+        <path
+            d="M0,40 C170,-5 300,65 500,160 C690,45 820,-5 1000,40 L1000,180 L0,180 Z"
+            fill="#d6f7c2"/>
+        <path
+            d="M0,95 C200,40 320,110 500,180 C700,85 850,45 1000,90 L1000,180 L0,180 Z"
+            fill="#c9f2ad"/>
+    </svg>
+</div>
+
+<!-- ================= VIEW 1: LETTER ================= -->
+<div id="view-letter">
+<main class="page">
+
+    <!-- Title with leafy vines -->
+    <header class="title-wrap">
+
+        <div class="vine top">
+            <svg viewBox="0 0 500 50">
+                <path d="M5 38 Q120 0 250 25 T495 12"
+                      fill="none" stroke="#8eaa79" stroke-width="2"/>
+                <g fill="#b9e4a5">
+                    <ellipse cx="65" cy="23" rx="17" ry="7" transform="rotate(-35 65 23)"/>
+                    <ellipse cx="110" cy="15" rx="16" ry="7" transform="rotate(30 110 15)"/>
+                    <ellipse cx="165" cy="17" rx="17" ry="7" transform="rotate(-35 165 17)"/>
+                    <ellipse cx="220" cy="23" rx="16" ry="7" transform="rotate(35 220 23)"/>
+                    <ellipse cx="280" cy="25" rx="17" ry="7" transform="rotate(-35 280 25)"/>
+                    <ellipse cx="335" cy="22" rx="16" ry="7" transform="rotate(35 335 22)"/>
+                    <ellipse cx="390" cy="15" rx="17" ry="7" transform="rotate(-35 390 15)"/>
+                    <ellipse cx="445" cy="13" rx="16" ry="7" transform="rotate(35 445 13)"/>
+                </g>
+            </svg>
+        </div>
+
+        <div class="title-banner">
+            <h1>A little letter for you ♡</h1>
+            <p>just for my favourite person</p>
+        </div>
+
+        <div class="vine bottom">
+            <svg viewBox="0 0 500 50">
+                <path d="M5 38 Q120 0 250 25 T495 12"
+                      fill="none" stroke="#8eaa79" stroke-width="2"/>
+                <g fill="#b9e4a5">
+                    <ellipse cx="65" cy="23" rx="17" ry="7" transform="rotate(-35 65 23)"/>
+                    <ellipse cx="110" cy="15" rx="16" ry="7" transform="rotate(30 110 15)"/>
+                    <ellipse cx="165" cy="17" rx="17" ry="7" transform="rotate(-35 165 17)"/>
+                    <ellipse cx="220" cy="23" rx="16" ry="7" transform="rotate(35 220 23)"/>
+                    <ellipse cx="280" cy="25" rx="17" ry="7" transform="rotate(-35 280 25)"/>
+                    <ellipse cx="335" cy="22" rx="16" ry="7" transform="rotate(35 335 22)"/>
+                    <ellipse cx="390" cy="15" rx="17" ry="7" transform="rotate(-35 390 15)"/>
+                    <ellipse cx="445" cy="13" rx="16" ry="7" transform="rotate(35 445 13)"/>
+                </g>
+            </svg>
+        </div>
+
+    </header>
+
+    <!-- Diary letter -->
+    <article class="diary">
+
+        <div class="date">a little note, made with love ♡</div>
+
+        <h2 class="greeting">To my bhondu,</h2>
+
+        <div class="letter-text">
+            <p>Hii, my love. 💗</p>
+
+            <p>
+I wish I could be next to you right now, annoying you,
+holding your hand, and telling you all the little things
+that I sometimes can't put into words.
+            </p>
+
+            <p>
+You have become such a special part of my life.
+Even an ordinary day feels different when I get to
+talk to you. You make me smile in ways you probably
+don't even notice.
+            </p>
+
+            <p>
+I love our silly conversations, our jokes, the little
+moments we share, and all the memories we are still
+going to make together.
+            </p>
+
+            <p>
+Even when there's distance between us, you're still
+close to my heart. I hope this tiny diary page makes
+you feel loved, because that's exactly what you are.
+            </p>
+
+            <p>
+Thank you for being my person. I love you so much,
+my silly bhondu. Always remember that. 🥹
+            </p>
+        </div>
+
+        <div class="signature">
+            Forever yours,<br>
+            Nandu ♡
+        </div>
+
+        <div class="little-hearts">♡ 🌷 ♡ 🌷 ♡</div>
+
+    </article>
+
+    <div class="next-btn-wrap">
+        <button class="next-btn" id="toQuestionsBtn">Next page ♡ →</button>
+    </div>
+
+</main>
+</div>
+
+<!-- Floral decorations (letter view only) -->
+<div class="flower-border">
+    <span>❀</span>
+    <span>🌼</span>
+    <span>🌸</span>
+    <span>🌷</span>
+    <span>❀</span>
+</div>
+
+<!-- ================= VIEW 2: QUESTIONS ================= -->
+<div id="view-questions">
+  <div class="q-wrap">
+    <div class="q-banner">
+      <h1>ANSWER SOME QUESTIONS</h1>
+      <span>BBG &lt;333</span>
+    </div>
+
+    <!-- Question 1 -->
+    <div class="q-card active" data-card="1">
+      <h2>Who made the first move?</h2>
+      <button class="q-option">YOU</button>
+      <button class="q-option">ME</button>
+      <button class="q-next-btn">Next</button>
+      <p class="q-footnote">Your Canva profile name won't be shared</p>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="q-card" data-card="2">
+      <h2>Who is more freaky??</h2>
+      <button class="q-option">YOU</button>
+      <button class="q-option">ME</button>
+      <button class="q-next-btn">Next</button>
+      <p class="q-footnote">Your Canva profile name won't be shared</p>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="q-card" data-card="3">
+      <h2>Who is more funny?</h2>
+      <button class="q-option">YOU</button>
+      <button class="q-option">ME</button>
+      <button class="q-next-btn">Next</button>
+      <p class="q-footnote">Your Canva profile name won't be shared</p>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="q-card" data-card="4">
+      <h2>Who loves more?</h2>
+      <button class="q-option">YOU</button>
+      <button class="q-option">ME</button>
+      <button class="q-option">BOTH</button>
+      <button class="q-next-btn">Next</button>
+      <p class="q-footnote">Your Canva profile name won't be shared</p>
+    </div>
+
+    <!-- End card -->
+    <div class="q-card q-end-card" data-card="5">
+      <h2>The end of the questions!!!</h2>
+      <p>now next ♡</p>
+      <button class="q-next-btn ready" onclick="window.location.href='page4.html'">Next</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ---- floating hearts (letter view) ----
+const symbols = ["♡", "♥", "୨୧", "❀"];
+let heartInterval;
+
+function makeHeart() {
+    const heart = document.createElement("span");
+    heart.className = "float-heart";
+    heart.textContent = symbols[
+        Math.floor(Math.random() * symbols.length)
+    ];
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (14 + Math.random() * 18) + "px";
+    heart.style.animationDuration = (6 + Math.random() * 5) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 12000);
+}
+
+heartInterval = setInterval(makeHeart, 1100);
+
+// ---- switch from letter to questions ----
+document.getElementById('toQuestionsBtn').addEventListener('click', () => {
+    document.getElementById('view-letter').style.display = 'none';
+    document.querySelector('.flower-border').style.display = 'none';
+    document.getElementById('view-questions').style.display = 'block';
+    document.body.classList.add('questions-mode');
+    clearInterval(heartInterval);
+    document.querySelectorAll('.float-heart').forEach(h => h.remove());
+    window.scrollTo(0, 0);
+});
+
+// ---- questions logic ----
+const qCards = document.querySelectorAll('.q-card');
+
+qCards.forEach((card, idx) => {
+  const options = card.querySelectorAll('.q-option');
+  const nextBtn = card.querySelector('.q-next-btn');
+  if (!nextBtn) return;
+
+  options.forEach(opt => {
+    opt.addEventListener('click', () => {
+      options.forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      nextBtn.classList.add('ready');
+    });
+  });
+
+  if (!card.classList.contains('q-end-card')) {
+    nextBtn.addEventListener('click', () => {
+      if (!nextBtn.classList.contains('ready')) return;
+      card.classList.remove('active');
+      const nextCard = qCards[idx + 1];
+      if (nextCard) nextCard.classList.add('active');
+    });
+  }
+});
+</script>
+
+</body>
+</html>
