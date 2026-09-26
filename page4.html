@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Little Gallery ♡</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Sacramento&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --pink: #ed9fc2;
+    --ink: #75545f;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: #fff9fc;
+    background-image:
+        linear-gradient(90deg, #dff3d8 1px, transparent 1px),
+        linear-gradient(#fce5ef 1px, transparent 1px);
+    background-size: 76px 76px;
+    color: var(--ink);
+    font-family: 'Patrick Hand', cursive;
+}
+
+.hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+        radial-gradient(ellipse at center, #f4a7c5 0 5px, transparent 6px);
+    background-size: 76px 76px;
+    opacity: 0.8;
+}
+
+.page {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    padding: 55px 18px 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title-wrap {
+    position: relative;
+    width: min(100%, 530px);
+    margin: 25px auto 35px;
+}
+
+.title-banner {
+    position: relative;
+    background: #eaa0c2;
+    color: white;
+    padding: 23px 18px;
+    text-align: center;
+    transform: rotate(-1deg);
+    border-radius: 4px 12px 5px 10px;
+    box-shadow: 0 4px 0 #e8b6ca;
+    clip-path: polygon(
+        2% 4%, 98% 0, 100% 20%, 97% 38%,
+        100% 60%, 97% 97%, 3% 100%,
+        0 80%, 3% 60%, 0 35%
+    );
+}
+
+.title-banner h1 {
+    font-family: 'Sacramento', cursive;
+    font-weight: normal;
+    font-size: clamp(36px, 8vw, 52px);
+    line-height: 1.2;
+}
+
+.title-banner p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-top: 8px;
+    text-transform: uppercase;
+}
+
+.vine {
+    position: absolute;
+    width: 100%;
+    height: 42px;
+    left: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+.vine.top { top: -27px; }
+.vine.bottom { bottom: -29px; transform: scaleY(-1); }
+.vine svg { width: 100%; height: 100%; overflow: visible; }
+
+/* Collage */
+
+.gallery {
+    width: min(100%, 1000px);
+    column-count: 4;
+    column-gap: 22px;
+}
+
+@media (max-width: 900px) {
+    .gallery { column-count: 3; }
+}
+@media (max-width: 640px) {
+    .gallery { column-count: 2; }
+}
+@media (max-width: 400px) {
+    .gallery { column-count: 1; }
+}
+
+.polaroid {
+    break-inside: avoid;
+    margin-bottom: 22px;
+    background: #fffdfd;
+    padding: 10px 10px 22px;
+    border-radius: 4px;
+    box-shadow: 0 8px 18px rgba(200,140,160,0.25);
+    transform: rotate(var(--r, 0deg));
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.polaroid:hover {
+    transform: rotate(0deg) scale(1.04);
+    box-shadow: 0 14px 26px rgba(200,140,160,0.35);
+    z-index: 5;
+    position: relative;
+}
+
+.polaroid img {
+    width: 100%;
+    display: block;
+    border-radius: 2px;
+}
+
+.polaroid:nth-child(4n+1){ --r: -4deg; }
+.polaroid:nth-child(4n+2){ --r: 3deg; }
+.polaroid:nth-child(4n+3){ --r: -2deg; }
+.polaroid:nth-child(4n+4){ --r: 4deg; }
+
+.caption {
+    text-align: center;
+    font-size: 15px;
+    color: #c76f98;
+    margin-top: 8px;
+    font-family: 'Sacramento', cursive;
+    font-size: 20px;
+}
+
+.outro {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.outro h2 {
+    font-family: 'Sacramento', cursive;
+    font-size: 32px;
+    color: #c76f98;
+}
+
+.outro p {
+    margin-top: 6px;
+    color: var(--ink);
+    font-size: 17px;
+}
+
+/* Bottom green hills */
+
+.hills {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    z-index: 0;
+    pointer-events: none;
+}
+.hills svg { width: 100%; height: 100%; }
+
+.flower-border {
+    position: fixed;
+    z-index: 2;
+    bottom: -17px;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 8px;
+    color: #e7a5c2;
+    font-size: clamp(40px, 8vw, 76px);
+    text-shadow: 1px 2px 0 white;
+}
+.flower-border span:nth-child(2) { font-size: 32px; margin-bottom: 22px; }
+.flower-border span:nth-child(3) { font-size: 50px; margin-bottom: 5px; }
+.flower-border span:nth-child(4) { font-size: 34px; margin-bottom: 25px; }
+
+.float-heart {
+    position: fixed;
+    bottom: -30px;
+    z-index: 3;
+    pointer-events: none;
+    color: #ed9fc2;
+    animation: floatUp 8s linear forwards;
+}
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(0); opacity: 0; }
+    15% { opacity: 0.8; }
+    100% { transform: translateY(-110vh) rotate(25deg); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .float-heart { animation: none; display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="hearts"></div>
+
+<div class="hills">
+    <svg viewBox="0 0 1000 180" preserveAspectRatio="none">
+        <path d="M0,40 C170,-5 300,65 500,160 C690,45 820,-5 1000,40 L1000,180 L0,180 Z" fill="#d6f7c2"/>
+        <path d="M0,95 C200,40 320,110 500,180 C700,85 850,45 1000,90 L1000,180 L0,180 Z" fill="#c9f2ad"/>
+    </svg>
+</div>
+
+<main class="page">
+
+    <header class="title-wrap">
+        <div class="vine top">
+            <svg viewBox="0 0 500 50">
+                <path d="M5 38 Q120 0 250 25 T495 12" fill="none" stroke="#8eaa79" stroke-width="2"/>
+                <g fill="#b9e4a5">
+                    <ellipse cx="65" cy="23" rx="17" ry="7" transform="rotate(-35 65 23)"/>
+                    <ellipse cx="110" cy="15" rx="16" ry="7" transform="rotate(30 110 15)"/>
+                    <ellipse cx="165" cy="17" rx="17" ry="7" transform="rotate(-35 165 17)"/>
+                    <ellipse cx="220" cy="23" rx="16" ry="7" transform="rotate(35 220 23)"/>
+                    <ellipse cx="280" cy="25" rx="17" ry="7" transform="rotate(-35 280 25)"/>
+                    <ellipse cx="335" cy="22" rx="16" ry="7" transform="rotate(35 335 22)"/>
+                    <ellipse cx="390" cy="15" rx="17" ry="7" transform="rotate(-35 390 15)"/>
+                    <ellipse cx="445" cy="13" rx="16" ry="7" transform="rotate(35 445 13)"/>
+                </g>
+            </svg>
+        </div>
+
+        <div class="title-banner">
+            <h1>our little gallery ♡</h1>
+            <p>every little memory of us</p>
+        </div>
+
+        <div class="vine bottom">
+            <svg viewBox="0 0 500 50">
+                <path d="M5 38 Q120 0 250 25 T495 12" fill="none" stroke="#8eaa79" stroke-width="2"/>
+                <g fill="#b9e4a5">
+                    <ellipse cx="65" cy="23" rx="17" ry="7" transform="rotate(-35 65 23)"/>
+                    <ellipse cx="110" cy="15" rx="16" ry="7" transform="rotate(30 110 15)"/>
+                    <ellipse cx="165" cy="17" rx="17" ry="7" transform="rotate(-35 165 17)"/>
+                    <ellipse cx="220" cy="23" rx="16" ry="7" transform="rotate(35 220 23)"/>
+                    <ellipse cx="280" cy="25" rx="17" ry="7" transform="rotate(-35 280 25)"/>
+                    <ellipse cx="335" cy="22" rx="16" ry="7" transform="rotate(35 335 22)"/>
+                    <ellipse cx="390" cy="15" rx="17" ry="7" transform="rotate(-35 390 15)"/>
+                    <ellipse cx="445" cy="13" rx="16" ry="7" transform="rotate(35 445 13)"/>
+                </g>
+            </svg>
+        </div>
+    </header>
+
+    <div class="gallery">
+        <div class="polaroid"><img src="pic1.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic2.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic3.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic4.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic5.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic6.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic7.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic8.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic9.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic10.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic11.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic12.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic13.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic14.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic15.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic16.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic17.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic18.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic19.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic20.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic21.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic22.jpg" alt="us"></div>
+        <div class="polaroid"><img src="pic23.jpg" alt="us"></div>
+    </div>
+
+    <div class="outro">
+        <h2>that's us ♡</h2>
+        <p>a lifetime more of these coming soon 🌷</p>
+    </div>
+
+</main>
+
+<div class="flower-border">
+    <span>❀</span>
+    <span>🌼</span>
+    <span>🌸</span>
+    <span>🌷</span>
+    <span>❀</span>
+</div>
+
+<script>
+const symbols = ["♡", "♥", "୨୧", "❀"];
+
+function makeHeart() {
+    const heart = document.createElement("span");
+    heart.className = "float-heart";
+    heart.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (14 + Math.random() * 18) + "px";
+    heart.style.animationDuration = (6 + Math.random() * 5) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 12000);
+}
+
+setInterval(makeHeart, 1100);
+</script>
+
+</body>
+</html>
