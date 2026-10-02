@@ -36,12 +36,11 @@ h1{font-family:'Playfair Display',serif;font-style:italic;font-weight:600;color:
 .beat{animation:beat 1.6s ease-in-out .8s infinite}
 @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
 
-.nav{display:flex;justify-content:space-between;width:min(100%,875px);padding:20px 12px 0}
+.nav{display:flex;justify-content:flex-start;width:min(100%,875px);padding:20px 12px 0}
 .nav button{border:none;border-radius:999px;padding:0 34px;height:54px;font:500 18px 'Montserrat',sans-serif;cursor:pointer;transition:transform .15s}
 .nav button:hover{transform:translateY(-2px)}
 .nav button:focus-visible{outline:3px solid #f1a3b4;outline-offset:3px}
 #back{background:#c3d9f0;color:#3b4a63}
-#next{background:#f7d9e3;color:#6b4a55}
 
 /* floating hearts */
 .float{position:fixed;pointer-events:none;z-index:60;color:#ee8aa3;animation:rise 2.2s ease-out forwards}
@@ -90,7 +89,6 @@ h1{font-family:'Playfair Display',serif;font-style:italic;font-weight:600;color:
 
 <div class="nav">
   <button id="back" type="button">← Back</button>
-  <button id="next" type="button">Next →</button>
 </div>
 
 <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="A little love letter">
@@ -106,9 +104,8 @@ h1{font-family:'Playfair Display',serif;font-style:italic;font-weight:600;color:
 </div>
 
 <script>
-/* where the buttons go — change these file names if needed */
+/* where the back button goes — change this file name if needed */
 const PREV_PAGE = 'the-stump.html';
-const NEXT_PAGE = 'page4.html';
 
 const HEART = '<svg viewBox="0 0 64 60" aria-hidden="true"><defs><linearGradient id="hg{n}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff4d5e"/><stop offset="1" stop-color="#ff5fa2"/></linearGradient></defs><path d="M32 57C10 42 2 31 2 19 2 9 9 3 17 3c6 0 11 3 15 9 4-6 9-9 15-9 8 0 15 6 15 16 0 12-8 23-30 38z" fill="url(#hg{n})"/><path d="M14 14c2-4 6-5 9-3" stroke="#fff" stroke-opacity=".5" stroke-width="3" stroke-linecap="round" fill="none"/></svg>';
 const mk = n => HEART.replace(/\{n\}/g, n);
@@ -164,7 +161,6 @@ overlay.addEventListener('click', e => { if (e.target === overlay) closeLetter()
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.classList.contains('open')) closeLetter(); });
 
 document.getElementById('back').addEventListener('click', () => { window.location.href = PREV_PAGE; });
-document.getElementById('next').addEventListener('click', () => { window.location.href = NEXT_PAGE; });
 </script>
 
 </body>
