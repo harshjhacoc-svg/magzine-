@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Stump ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--sky-top:#cfdfe6;--sky-bottom:#dbe6e0;--ink:#3f4547;--green:#3f6b3d;--green-btn:#5b8f5e;--green-btn-shadow:#2f4a33;--grass:#7da57a;--soil-top:#b9a98c;--soil-bottom:#8c7b63;--horizon:72%}
+html,body{height:100%;overflow:hidden}
+body{position:relative;background:linear-gradient(180deg,var(--sky-top) 0%,var(--sky-bottom) 72%);font-family:'Quicksand',sans-serif;color:var(--ink)}
+.sun{position:absolute;top:12%;left:76%;width:24vw;max-width:380px;aspect-ratio:1;transform:translate(-50%,0);background:radial-gradient(circle,rgba(255,240,190,.75) 0%,rgba(255,240,190,.3) 35%,transparent 68%);pointer-events:none}
+.hero{position:absolute;top:12%;left:50%;transform:translateX(-50%);width:min(92%,760px);text-align:center}
+.kicker{display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#6d7377}
+.kicker::before{content:"";width:30px;height:1px;background:#d9c79a}
+.line{margin-top:16px;font-size:clamp(20px,2.2vw,26px);color:var(--ink)}
+.controls{position:absolute;top:22px;right:18px;z-index:20}
+.pill{display:flex;gap:10px;padding:9px 12px;background:rgba(255,250,240,.75);backdrop-filter:blur(6px);border-radius:999px;box-shadow:0 6px 16px rgba(110,120,110,.18)}
+.pill button{width:36px;height:36px;border:none;border-radius:50%;background:#ebe4d6;color:#8a8070;font-size:15px;cursor:pointer}
+.pill button.on{background:#d7e8cf;color:#2f5a34}
+.hills{position:absolute;left:0;width:100%;top:48%;height:26%;pointer-events:none}
+.hills svg{width:100%;height:100%;display:block}
+.grass{position:absolute;left:0;width:100%;top:calc(var(--horizon) - 7.5%);height:7.5%;background:linear-gradient(180deg,rgba(125,165,122,0) 0%,#8aae85 55%,var(--grass) 100%);pointer-events:none}
+.soil{position:absolute;left:0;width:100%;top:var(--horizon);bottom:0;background:linear-gradient(180deg,var(--soil-top) 0%,var(--soil-bottom) 100%);box-shadow:inset 0 6px 0 var(--grass);z-index:3}
+
+/* stump */
+.stump{position:absolute;left:50%;bottom:calc(100% - var(--horizon) - 1%);transform:translateX(-50%);width:clamp(120px,14vw,200px);z-index:5}
+.stump svg{display:block;width:100%;height:auto}
+
+/* duck */
+.duck{position:absolute;top:calc(var(--horizon) - 3%);left:36%;width:clamp(70px,6vw,110px);transform:translateX(-50%);z-index:6;filter:drop-shadow(0 6px 4px rgba(60,50,30,.25))}
+.duck svg{display:block;width:100%;height:auto}
+
+/* cassette */
+.cassette-wrap{position:absolute;top:26%;left:50%;transform:translateX(-50%);width:min(360px,58vw,50vh);z-index:8}
+.cassette{position:relative;filter:drop-shadow(0 12px 10px rgba(60,60,60,.3))}
+.cassette>svg{display:block;width:100%;height:auto}
+.reel{transform-box:fill-box;transform-origin:center;animation:spin 2.4s linear infinite;animation-play-state:paused}
+.cassette-wrap.playing .reel{animation-play-state:running}
+@keyframes spin{to{transform:rotate(360deg)}}
+.play-btn{position:absolute;right:-16px;bottom:-24px;width:54px;height:54px;border:none;border-radius:50%;background:#fffaf3;color:#2b2b2b;cursor:pointer;display:grid;place-items:center;box-shadow:0 4px 0 #3b3b3b;transition:transform .15s,box-shadow .15s}
+.play-btn:hover{transform:translateY(-2px)}
+.play-btn:active{transform:translateY(3px);box-shadow:0 1px 0 #333}
+.play-btn svg{width:22px;height:22px}
+.play-btn .i-pause{display:none}
+.cassette-wrap.playing .i-play{display:none}
+.cassette-wrap.playing .i-pause{display:block}
+.tape-note{margin-top:40px;text-align:center;font-size:14px;color:#6d7377}
+
+/* nav */
+.nav{position:absolute;left:50%;bottom:11%;transform:translateX(-50%);z-index:10;text-align:center}
+.nav-row{display:flex;align-items:center;gap:10px}
+.back-btn{width:54px;height:54px;border:none;border-radius:50%;background:#fffaf3;color:#444;font-size:20px;cursor:pointer;box-shadow:0 4px 0 #3b3b3b;transition:transform .15s,box-shadow .15s}
+.go-btn{padding:0 38px;height:60px;border:none;border-radius:999px;background:var(--green-btn);color:#fff;font-family:'Quicksand',sans-serif;font-size:18px;font-weight:600;cursor:pointer;box-shadow:0 5px 0 var(--green-btn-shadow);transition:transform .15s,box-shadow .15s}
+.back-btn:hover,.go-btn:hover{transform:translateY(-2px)}
+.back-btn:active,.go-btn:active{transform:translateY(3px);box-shadow:0 1px 0 #333}
+.back-btn:focus-visible,.go-btn:focus-visible,.play-btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+
+.burst{position:fixed;z-index:30;pointer-events:none;color:#ed9fc2;animation:burst 1.6s ease-out forwards}
+@keyframes burst{0%{transform:translateY(0) scale(.6);opacity:0}20%{opacity:1}100%{transform:translateY(-120px) scale(1.2);opacity:0}}
+@media (prefers-reduced-motion:reduce){.reel{animation:none}.burst{display:none}}
+@media (max-width:700px){.go-btn{padding:0 26px;font-size:16px}}
+</style>
+</head>
+<body>
+
+<div class="sun"></div>
+
+<section class="hero">
+    <div class="kicker">The Stump</div>
+    <p class="line">someone left a tape here. press it.</p>
+</section>
+
+<div class="cassette-wrap" id="cassetteWrap">
+    <div class="cassette">
+        <svg viewBox="0 0 380 250" aria-label="old cassette tape">
+            <rect x="4" y="4" width="372" height="236" rx="14" fill="#2a2a2a" stroke="#111" stroke-width="3"/>
+            <g fill="#6b6b6b" stroke="#111" stroke-width="1.5">
+                <circle cx="22" cy="22" r="6"/><circle cx="358" cy="22" r="6"/>
+                <circle cx="22" cy="222" r="6"/><circle cx="358" cy="222" r="6"/>
+            </g>
+            <rect x="34" y="22" width="312" height="128" rx="6" fill="#fbf4ee"/>
+            <rect x="34" y="114" width="312" height="36" fill="#ee7fa7"/>
+            <text x="54" y="58" font-family="Patrick Hand, cursive" font-size="26" fill="#c76f98">he's my man</text>
+            <text x="54" y="82" font-family="Patrick Hand, cursive" font-size="17" fill="#9a8a90">luvcat</text>
+            <path d="M200 50 H330 M200 70 H330" stroke="#e8a9c0" stroke-width="2" fill="none"/>
+            <text x="276" y="141" font-family="Quicksand, sans-serif" font-size="11" fill="#fff" letter-spacing="1">HI-FI LOW NOISE</text>
+            <text x="54" y="141" font-family="Quicksand, sans-serif" font-size="11" fill="#fff" letter-spacing="1">C60</text>
+            <rect x="72" y="66" width="236" height="58" rx="29" fill="#1d1d1d" stroke="#111" stroke-width="2"/>
+            <g class="reel">
+                <circle cx="122" cy="95" r="20" fill="#f2f2f2" stroke="#999" stroke-width="2"/>
+                <g stroke="#9a9a9a" stroke-width="3" stroke-linecap="round"><path d="M122 80 V110 M109 87 L135 103 M109 103 L135 87"/></g>
+                <circle cx="122" cy="95" r="6" fill="#222"/>
+            </g>
+            <g class="reel">
+                <circle cx="258" cy="95" r="20" fill="#f2f2f2" stroke="#999" stroke-width="2"/>
+                <g stroke="#9a9a9a" stroke-width="3" stroke-linecap="round"><path d="M258 80 V110 M245 87 L271 103 M245 103 L271 87"/></g>
+                <circle cx="258" cy="95" r="6" fill="#222"/>
+            </g>
+            <rect x="170" y="80" width="40" height="30" rx="3" fill="#8a7f78" opacity=".55"/>
+            <polygon points="92,240 112,176 268,176 288,240" fill="#3a3a3a" stroke="#111" stroke-width="2"/>
+            <g fill="#161616"><rect x="132" y="206" width="14" height="14" rx="2"/><rect x="234" y="206" width="14" height="14" rx="2"/><circle cx="190" cy="188" r="6"/></g>
+        </svg>
+        <button class="play-btn" id="playBtn" aria-label="play the tape">
+            <svg class="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="i-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+        </button>
+    </div>
+    <p class="tape-note" id="tapeNote">the one that's always ours</p>
+</div>
+
+<audio id="tape" src="song.mp3" preload="auto"></audio>
+
+<aside class="controls">
+    <div class="pill">
+        <button class="on" title="flowers" aria-label="flowers">✿</button>
+        <button data-toggle title="music" aria-label="music">♪</button>
+        <button data-toggle title="frame" aria-label="frame">▢</button>
+        <button data-toggle title="magic" aria-label="magic">✎</button>
+        <button id="heartBtn" title="love" aria-label="love">♡</button>
+    </div>
+</aside>
+
+<div class="hills">
+    <svg viewBox="0 0 1000 200" preserveAspectRatio="none">
+        <path d="M0,120 C120,70 260,60 380,100 C480,135 560,150 700,110 C820,75 920,60 1000,90 L1000,200 L0,200 Z" fill="#d5e0d6"/>
+        <path d="M0,150 C180,95 300,100 430,130 C560,160 640,125 760,100 C860,80 940,95 1000,110 L1000,200 L0,200 Z" fill="#c3d2c1"/>
+        <path d="M0,170 C140,150 280,140 420,155 C560,170 700,150 840,140 C920,135 970,142 1000,148 L1000,200 L0,200 Z" fill="#a9c1a5"/>
+    </svg>
+</div>
+<div class="grass"></div>
+
+<!-- tree stump -->
+<div class="stump">
+    <svg viewBox="0 0 200 120" aria-label="tree stump">
+        <path d="M30 112 C40 100 38 60 44 34 L156 34 C162 60 160 100 170 112 Z" fill="#8a6a49" stroke="#5e472f" stroke-width="3" stroke-linejoin="round"/>
+        <ellipse cx="100" cy="34" rx="56" ry="14" fill="#d9b98c" stroke="#5e472f" stroke-width="3"/>
+        <ellipse cx="100" cy="34" rx="38" ry="8" fill="none" stroke="#b58f62" stroke-width="2"/>
+        <ellipse cx="100" cy="34" rx="18" ry="4" fill="none" stroke="#b58f62" stroke-width="2"/>
+        <path d="M62 50 V100 M96 46 V104 M132 50 V98" stroke="#6f5338" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+    </svg>
+</div>
+
+<div class="duck">
+    <svg viewBox="0 0 120 120" aria-label="duck">
+        <path d="M46 108 L38 118 L52 117 Z M72 108 L66 118 L80 117 Z" fill="#f59a2b" stroke="#222" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M12 72 C10 50 30 44 44 50 C50 30 62 14 80 14 C98 14 104 30 98 44 L108 52 C100 56 92 56 88 54 C90 70 88 96 62 106 C34 112 14 98 12 72 Z" fill="#fff" stroke="#222" stroke-width="3.5" stroke-linejoin="round"/>
+        <path d="M26 74 C36 62 56 66 60 82 C48 92 30 90 26 74 Z" fill="#f4f4f4" stroke="#222" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M92 34 C102 28 112 32 116 40 C108 46 98 46 92 42 Z" fill="#f59a2b" stroke="#222" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="84" cy="32" r="3" fill="#222"/>
+    </svg>
+</div>
+
+<div class="soil"></div>
+
+<nav class="nav">
+    <div class="nav-row">
+        <button class="back-btn" id="backBtn" aria-label="go back">←</button>
+        <button class="go-btn" id="goBtn">next →</button>
+    </div>
+</nav>
+
+<script>
+/* where the buttons go — change these file names if needed */
+const PREV_PAGE = 'garden.html';
+const NEXT_PAGE = 'page4.html';
+
+const tape = document.getElementById('tape');
+const cassetteWrap = document.getElementById('cassetteWrap');
+const playBtn = document.getElementById('playBtn');
+const tapeNote = document.getElementById('tapeNote');
+
+function setPlaying(on) {
+    cassetteWrap.classList.toggle('playing', on);
+    playBtn.setAttribute('aria-label', on ? 'pause the tape' : 'play the tape');
+}
+
+tape.addEventListener('play', () => setPlaying(true));
+tape.addEventListener('pause', () => setPlaying(false));
+tape.addEventListener('ended', () => setPlaying(false));
+tape.addEventListener('error', () => {
+    setPlaying(false);
+    tapeNote.textContent = "this tape won't play right now";
+});
+
+playBtn.addEventListener('click', () => {
+    if (tape.paused) tape.play().catch(() => { tapeNote.textContent = "this tape won't play right now"; });
+    else tape.pause();
+});
+
+/* stop the music when leaving the page */
+window.addEventListener('pagehide', () => tape.pause());
+
+document.getElementById('goBtn').addEventListener('click', () => { window.location.href = NEXT_PAGE; });
+document.getElementById('backBtn').addEventListener('click', () => { window.location.href = PREV_PAGE; });
+
+document.querySelectorAll('[data-toggle]').forEach(b =>
+    b.addEventListener('click', () => b.classList.toggle('on'))
+);
+
+document.getElementById('heartBtn').addEventListener('click', e => {
+    const r = e.currentTarget.getBoundingClientRect();
+    for (let n = 0; n < 6; n++) {
+        const h = document.createElement('span');
+        h.className = 'burst';
+        h.textContent = ['♡', '♥', '❀'][n % 3];
+        h.style.left = (r.left + Math.random() * 30) + 'px';
+        h.style.top = (r.bottom + Math.random() * 20) + 'px';
+        h.style.fontSize = (14 + Math.random() * 12) + 'px';
+        h.style.animationDelay = (n * 0.08) + 's';
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 2000);
+    }
+});
+</script>
+
+</body>
+</html>
