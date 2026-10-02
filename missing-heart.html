@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One heart is missing ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Montserrat:wght@400;500&family=Dancing+Script:wght@500;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#faf5f3;--red:#d94f5c;--tile:#fff6f3;--card:#fdfafa}
+html,body{min-height:100%}
+body{background:var(--bg);font-family:'Montserrat',sans-serif;color:#4a3a3f;display:flex;flex-direction:column;align-items:center;padding:clamp(28px,6vh,70px) 16px 32px}
+
+h1{font-family:'Playfair Display',serif;font-style:italic;font-weight:600;color:var(--red);font-size:clamp(28px,5.2vw,52px);text-align:center;line-height:1.15;margin-bottom:clamp(20px,4vh,40px)}
+
+.wrap{width:min(100%,875px)}
+.card{background:var(--card);border-radius:28px;box-shadow:0 10px 30px rgba(120,80,80,.08);padding:clamp(18px,4vw,40px);display:flex;justify-content:center}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,2.2vw,20px);width:min(100%,520px)}
+
+.tile{aspect-ratio:1;border:none;border-radius:18px;background:var(--tile);box-shadow:0 3px 8px rgba(150,110,110,.14),inset 0 0 0 1px rgba(255,255,255,.7);display:grid;place-items:center;font:inherit}
+.tile svg{width:42%;height:auto;display:block}
+.x{width:36%;aspect-ratio:1;position:relative}
+.x::before,.x::after{content:"";position:absolute;left:50%;top:50%;width:100%;height:9%;min-height:4px;background:var(--red);border-radius:4px}
+.x::before{transform:translate(-50%,-50%) rotate(45deg)}
+.x::after{transform:translate(-50%,-50%) rotate(-45deg)}
+
+#center{cursor:pointer;transition:transform .2s ease,box-shadow .2s ease}
+#center:hover{transform:translateY(-3px);box-shadow:0 8px 16px rgba(217,79,92,.2)}
+#center:focus-visible{outline:3px solid #f1a3b4;outline-offset:3px}
+#center.filled svg{animation:pop .7s cubic-bezier(.3,1.6,.5,1) both}
+#center.filled{cursor:default}
+#center:not(.filled)::after{content:"";width:14%;aspect-ratio:1;border-radius:50%;background:rgba(217,79,92,.18);animation:pulse 1.8s ease-in-out infinite}
+@keyframes pop{0%{transform:scale(0) rotate(-12deg)}60%{transform:scale(1.25) rotate(4deg)}100%{transform:scale(1) rotate(0)}}
+@keyframes pulse{0%,100%{transform:scale(.7);opacity:.5}50%{transform:scale(1.5);opacity:1}}
+.beat{animation:beat 1.6s ease-in-out .8s infinite}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+
+.nav{display:flex;justify-content:space-between;width:min(100%,875px);padding:20px 12px 0}
+.nav button{border:none;border-radius:999px;padding:0 34px;height:54px;font:500 18px 'Montserrat',sans-serif;cursor:pointer;transition:transform .15s}
+.nav button:hover{transform:translateY(-2px)}
+.nav button:focus-visible{outline:3px solid #f1a3b4;outline-offset:3px}
+#back{background:#c3d9f0;color:#3b4a63}
+#next{background:#f7d9e3;color:#6b4a55}
+
+/* floating hearts */
+.float{position:fixed;pointer-events:none;z-index:60;color:#ee8aa3;animation:rise 2.2s ease-out forwards}
+@keyframes rise{0%{transform:translateY(0) scale(.5);opacity:0}15%{opacity:1}100%{transform:translateY(-220px) scale(1.2);opacity:0}}
+
+/* love letter popup */
+.overlay{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(80,40,50,.28);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+.overlay.open{display:flex;animation:fade .3s ease}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.letter{position:relative;width:min(100%,440px);max-height:92vh;overflow:auto;background:linear-gradient(180deg,#fff0f4,#ffe4ec);border:2px solid #f1b5c6;border-radius:26px;box-shadow:0 0 0 6px rgba(255,255,255,.7),0 20px 50px rgba(150,60,80,.3);padding:34px 28px 26px;text-align:center;animation:rise-in .5s cubic-bezier(.3,1.4,.5,1)}
+@keyframes rise-in{from{transform:translateY(24px) scale(.9);opacity:0}to{transform:none;opacity:1}}
+.letter .deco{color:#e56b88;font-size:22px;letter-spacing:6px;margin-bottom:12px}
+.letter p{font-family:'Caveat',cursive;font-weight:500;font-size:clamp(21px,5vw,25px);line-height:1.35;color:#7a3b4e;margin-bottom:12px}
+.letter .big{font-family:'Dancing Script',cursive;font-weight:700;font-size:clamp(28px,7vw,36px);color:#d93f62;line-height:1.2;margin:4px 0 14px}
+.letter .big em{font-style:normal;font-size:1.25em;text-decoration:underline wavy #f1a3b4;text-underline-offset:6px}
+.letter .hl{font-style:normal;font-family:'Dancing Script',cursive;font-weight:700;font-size:1.5em;color:#d93f62;text-decoration:underline wavy #f1a3b4;text-underline-offset:5px}
+.letter .hb{margin:2px 0 16px}
+.letter .sign{font-family:'Dancing Script',cursive;font-weight:700;font-size:26px;color:#d93f62;margin:14px 0 18px}
+.letter .close{border:none;border-radius:999px;background:#f7c6d4;color:#7a3b4e;font:500 16px 'Montserrat',sans-serif;padding:11px 28px;cursor:pointer}
+.letter .close:hover{background:#f3b3c6}
+.letter .close:focus-visible{outline:3px solid #d93f62;outline-offset:3px}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:600px){.nav button{padding:0 24px;height:48px;font-size:16px}.card{border-radius:22px}}
+</style>
+</head>
+<body>
+
+<h1>One heart is missing, place it 💘</h1>
+
+<main class="wrap">
+  <div class="card">
+    <div class="grid" id="grid">
+      <div class="tile" data-t="heart"></div>
+      <div class="tile"><span class="x"></span></div>
+      <div class="tile"><span class="x"></span></div>
+      <div class="tile"><span class="x"></span></div>
+      <button class="tile" id="center" type="button" aria-label="Place the missing heart"></button>
+      <div class="tile"><span class="x"></span></div>
+      <div class="tile"><span class="x"></span></div>
+      <div class="tile"><span class="x"></span></div>
+      <div class="tile" data-t="heart"></div>
+    </div>
+  </div>
+</main>
+
+<div class="nav">
+  <button id="back" type="button">← Back</button>
+  <button id="next" type="button">Next →</button>
+</div>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="A little love letter">
+  <div class="letter">
+    <div class="deco">♡ ♥ ♡</div>
+    <p class="big hb">Happy Boyfriend’s Day, my love! 💗</p>
+    <p>You found the missing piece of my heart, because you <em class="hl">are</em> my heart too. ♡</p>
+    <p>No matter how many miles separate us, my heart will always belong to you. You’re my favourite person, my sweetest happiness, and my forever. 🧸💕</p>
+    <p>I love you endlessly, Abhay.</p>
+    <div class="sign">Forever yours, your girl. 💌</div>
+    <button class="close" id="closeBtn" type="button">Close ♡</button>
+  </div>
+</div>
+
+<script>
+/* where the buttons go — change these file names if needed */
+const PREV_PAGE = 'the-stump.html';
+const NEXT_PAGE = 'page4.html';
+
+const HEART = '<svg viewBox="0 0 64 60" aria-hidden="true"><defs><linearGradient id="hg{n}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff4d5e"/><stop offset="1" stop-color="#ff5fa2"/></linearGradient></defs><path d="M32 57C10 42 2 31 2 19 2 9 9 3 17 3c6 0 11 3 15 9 4-6 9-9 15-9 8 0 15 6 15 16 0 12-8 23-30 38z" fill="url(#hg{n})"/><path d="M14 14c2-4 6-5 9-3" stroke="#fff" stroke-opacity=".5" stroke-width="3" stroke-linecap="round" fill="none"/></svg>';
+const mk = n => HEART.replace(/\{n\}/g, n);
+
+document.querySelectorAll('[data-t="heart"]').forEach((t, k) => t.innerHTML = mk('s' + k));
+
+const center = document.getElementById('center');
+const overlay = document.getElementById('overlay');
+const closeBtn = document.getElementById('closeBtn');
+
+function openLetter()  { overlay.classList.add('open'); closeBtn.focus(); }
+function closeLetter() { overlay.classList.remove('open'); center.focus(); }
+
+function floatHearts() {
+  const r = center.getBoundingClientRect();
+  for (let n = 0; n < 9; n++) {
+    const h = document.createElement('span');
+    h.className = 'float';
+    h.textContent = ['♡', '♥', '💗'][n % 3];
+    h.style.left = (r.left + r.width * (0.15 + Math.random() * 0.7)) + 'px';
+    h.style.top = (r.top + r.height * 0.4) + 'px';
+    h.style.fontSize = (16 + Math.random() * 16) + 'px';
+    h.style.animationDelay = (n * 0.09) + 's';
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 3200);
+  }
+}
+
+function fill(animate) {
+  center.innerHTML = mk('c');
+  center.classList.add('filled');
+  center.setAttribute('aria-label', 'The missing heart, placed. Tap to read your letter again');
+  if (animate) {
+    floatHearts();
+    setTimeout(() => center.querySelector('svg').classList.add('beat'), 700);
+    setTimeout(openLetter, 700);
+  } else {
+    center.querySelector('svg').style.animation = 'none';
+  }
+}
+
+/* once filled, it never turns back into an X; clicking again just reopens the letter */
+center.addEventListener('click', () => {
+  if (center.classList.contains('filled')) { openLetter(); return; }
+  fill(true);
+  try { localStorage.setItem('missingHeartFilled', '1'); } catch (e) {}
+});
+
+try { if (localStorage.getItem('missingHeartFilled') === '1') fill(false); } catch (e) {}
+
+closeBtn.addEventListener('click', closeLetter);
+overlay.addEventListener('click', e => { if (e.target === overlay) closeLetter(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.classList.contains('open')) closeLetter(); });
+
+document.getElementById('back').addEventListener('click', () => { window.location.href = PREV_PAGE; });
+document.getElementById('next').addEventListener('click', () => { window.location.href = NEXT_PAGE; });
+</script>
+
+</body>
+</html>
