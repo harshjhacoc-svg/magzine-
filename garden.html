@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Verge ♡</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --sky-top: #cfdfe6;
+    --sky-bottom: #dbe6e0;
+    --ink: #3f4547;
+    --green: #3f6b3d;
+    --green-btn: #5b8f5e;
+    --green-btn-shadow: #2f4a33;
+    --grass: #7da57a;
+    --soil-top: #b9a98c;
+    --soil-bottom: #8c7b63;
+    --horizon: 72%;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    position: relative;
+    background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bottom) 72%);
+    font-family: 'Quicksand', sans-serif;
+    color: var(--ink);
+}
+
+/* ---------- Sky ---------- */
+
+.sun {
+    position: absolute;
+    top: 12%;
+    left: 76%;
+    width: 24vw;
+    max-width: 380px;
+    aspect-ratio: 1;
+    transform: translate(-50%, 0);
+    background: radial-gradient(circle, rgba(255,240,190,.75) 0%, rgba(255,240,190,.3) 35%, transparent 68%);
+    pointer-events: none;
+}
+
+.hero {
+    position: absolute;
+    top: 19%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(92%, 760px);
+    text-align: center;
+    transition: opacity .35s ease;
+}
+
+.hero.fade { opacity: 0; }
+
+.kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #6d7377;
+}
+
+.kicker::before {
+    content: "";
+    width: 30px;
+    height: 1px;
+    background: #d9c79a;
+}
+
+.line {
+    margin-top: 16px;
+    font-size: clamp(20px, 2.2vw, 26px);
+    font-weight: 400;
+    color: var(--ink);
+}
+
+.sub {
+    margin-top: 22px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: clamp(26px, 2.8vw, 34px);
+    color: var(--green);
+    line-height: 1.1;
+}
+
+.count {
+    margin-top: 14px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #7a8083;
+}
+
+/* ---------- Top-right controls ---------- */
+
+.controls {
+    position: absolute;
+    top: 22px;
+    right: 18px;
+    z-index: 20;
+    text-align: right;
+}
+
+.pill {
+    display: flex;
+    gap: 10px;
+    padding: 9px 12px;
+    background: rgba(255, 250, 240, .75);
+    backdrop-filter: blur(6px);
+    border-radius: 999px;
+    box-shadow: 0 6px 16px rgba(110, 120, 110, .18);
+}
+
+.pill button {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: #ebe4d6;
+    color: #8a8070;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background .2s ease, transform .2s ease;
+}
+
+.pill button:hover { transform: translateY(-1px); }
+.pill button.on { background: #d7e8cf; color: #2f5a34; }
+.pill button:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+.step-of {
+    margin-top: 8px;
+    margin-right: 6px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #6d7377;
+}
+
+/* ---------- Landscape ---------- */
+
+.hills {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 48%;
+    height: 26%;
+    pointer-events: none;
+}
+
+.hills svg { width: 100%; height: 100%; display: block; }
+
+.grass {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: calc(var(--horizon) - 7.5%);
+    height: 7.5%;
+    background: linear-gradient(180deg, rgba(125,165,122,.0) 0%, #8aae85 55%, var(--grass) 100%);
+    pointer-events: none;
+}
+
+.blades {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: calc(var(--horizon) - 7.5%);
+    height: 7.5%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60' viewBox='0 0 120 60'%3E%3Cg stroke='%2379a075' stroke-width='3' stroke-linecap='round' fill='none'%3E%3Cpath d='M6 60 L2 14'/%3E%3Cpath d='M14 60 L22 8'/%3E%3Cpath d='M22 60 L12 24'/%3E%3Cpath d='M34 60 L30 18'/%3E%3Cpath d='M44 60 L56 6'/%3E%3Cpath d='M52 60 L46 22'/%3E%3Cpath d='M64 60 L70 12'/%3E%3Cpath d='M74 60 L66 26'/%3E%3Cpath d='M86 60 L92 4'/%3E%3Cpath d='M96 60 L90 20'/%3E%3Cpath d='M106 60 L116 10'/%3E%3Cpath d='M114 60 L108 28'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 120px 100%;
+    background-repeat: repeat-x;
+    background-position: bottom;
+    pointer-events: none;
+    z-index: 4;
+}
+
+.soil {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: var(--horizon);
+    bottom: 0;
+    background:
+        repeating-linear-gradient(97deg, transparent 0 78px, rgba(255,255,255,.2) 78px 80px, transparent 80px 130px, rgba(255,255,255,.12) 130px 131px),
+        linear-gradient(180deg, var(--soil-top) 0%, var(--soil-bottom) 100%);
+    box-shadow: inset 0 6px 0 var(--grass);
+    z-index: 3;
+}
+
+/* ---------- Bouquets ---------- */
+
+.bouquet {
+    position: absolute;
+    bottom: calc(100% - var(--horizon) - 1%);
+    transform: translateX(-50%);
+    z-index: 5;
+    filter: drop-shadow(0 8px 6px rgba(70, 90, 70, .28));
+    cursor: pointer;
+    transition: transform .25s ease;
+}
+
+.bouquet:hover { transform: translateX(-50%) translateY(-6px) rotate(-1.5deg); }
+
+.bouquet img {
+    display: block;
+    height: 100%;
+    width: auto;
+}
+
+.bouquet .emoji {
+    display: block;
+    line-height: 1;
+    text-align: center;
+}
+
+.b1 { left: 31.7%; height: 21vh; }
+.b2 { left: 45.3%; height: 24vh; }
+.b3 { left: 59%;   height: 20vh; }
+.b4 { left: 72%;   height: 28vh; }
+.b5 { left: 86%;   height: 18vh; }
+
+/* ---------- Duck ---------- */
+
+.duck {
+    position: absolute;
+    top: calc(var(--horizon) - 3%);
+    left: 13%;
+    width: clamp(70px, 6vw, 110px);
+    transform: translateX(-50%);
+    z-index: 6;
+    transition: left 1.1s cubic-bezier(.45, .1, .3, 1);
+    filter: drop-shadow(0 6px 4px rgba(60, 50, 30, .25));
+}
+
+.duck svg { display: block; width: 100%; height: auto; }
+.duck.walking svg { animation: waddle .35s ease-in-out infinite; transform-origin: 50% 100%; }
+
+@keyframes waddle {
+    0%, 100% { transform: rotate(-4deg); }
+    50% { transform: rotate(4deg) translateY(-3px); }
+}
+
+/* ---------- Bottom nav ---------- */
+
+.nav {
+    position: absolute;
+    left: 50%;
+    bottom: 11%;
+    transform: translateX(-50%);
+    z-index: 10;
+    text-align: center;
+}
+
+.nav-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.back-btn {
+    width: 54px;
+    height: 54px;
+    border: none;
+    border-radius: 50%;
+    background: #fffaf3;
+    color: #444;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #3b3b3b;
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.go-btn {
+    padding: 0 38px;
+    height: 60px;
+    border: none;
+    border-radius: 999px;
+    background: var(--green-btn);
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 5px 0 var(--green-btn-shadow);
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.back-btn:hover, .go-btn:hover { transform: translateY(-2px); }
+.back-btn:active, .go-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #333; }
+.back-btn:focus-visible, .go-btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+.stop-of {
+    margin-top: 16px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: rgba(70, 60, 45, .55);
+}
+
+/* ---------- Hearts burst ---------- */
+
+.burst {
+    position: fixed;
+    z-index: 30;
+    pointer-events: none;
+    color: #ed9fc2;
+    animation: burst 1.6s ease-out forwards;
+}
+
+@keyframes burst {
+    0% { transform: translateY(0) scale(.6); opacity: 0; }
+    20% { opacity: 1; }
+    100% { transform: translateY(-120px) scale(1.2); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .duck { transition: none; }
+    .duck.walking svg { animation: none; }
+    .burst { display: none; }
+}
+
+@media (max-width: 700px) {
+    .b1 { left: 18%; } .b2 { left: 38%; } .b3 { left: 58%; } .b4 { left: 78%; }
+    .b5 { display: none; }
+    .go-btn { padding: 0 26px; font-size: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="sun"></div>
+
+<section class="hero" id="hero">
+    <div class="kicker">The Verge</div>
+    <p class="line" id="line">a whole armful, just for my flower.</p>
+    <p class="sub" id="sub">one because you're cute</p>
+    <p class="count" id="count">5 / 5 picked</p>
+</section>
+
+<aside class="controls">
+    <div class="pill">
+        <button class="on" title="flowers" aria-label="flowers">✿</button>
+        <button data-toggle title="music" aria-label="music">♪</button>
+        <button data-toggle title="frame" aria-label="frame">▢</button>
+        <button data-toggle title="magic" aria-label="magic">✎</button>
+        <button id="heartBtn" title="love" aria-label="love">♡</button>
+    </div>
+    <div class="step-of" id="stepOf">1 OF 4</div>
+</aside>
+
+<div class="hills">
+    <svg viewBox="0 0 1000 200" preserveAspectRatio="none">
+        <path d="M0,120 C120,70 260,60 380,100 C480,135 560,150 700,110 C820,75 920,60 1000,90 L1000,200 L0,200 Z" fill="#d5e0d6"/>
+        <path d="M0,150 C180,95 300,100 430,130 C560,160 640,125 760,100 C860,80 940,95 1000,110 L1000,200 L0,200 Z" fill="#c3d2c1"/>
+        <path d="M0,170 C140,150 280,140 420,155 C560,170 700,150 840,140 C920,135 970,142 1000,148 L1000,200 L0,200 Z" fill="#a9c1a5"/>
+    </svg>
+</div>
+
+<div class="grass"></div>
+<div class="blades"></div>
+
+<!-- Bouquets: drop your PNG cutouts next to this file with these names.
+     If a file is missing, an emoji shows instead. -->
+<div class="bouquet b1"><img src="tulips.png" alt="pink tulips" onerror="fallback(this,'🌷')"></div>
+<div class="bouquet b2"><img src="white-bouquet.png" alt="white bouquet" onerror="fallback(this,'💐')"></div>
+<div class="bouquet b3"><img src="sunflowers.png" alt="sunflower bouquet" onerror="fallback(this,'🌻')"></div>
+<div class="bouquet b4"><img src="yellow-roses.png" alt="yellow roses" onerror="fallback(this,'🌼')"></div>
+<div class="bouquet b5"><img src="small-bouquet.png" alt="small white bouquet" onerror="fallback(this,'💐')"></div>
+
+<div class="duck" id="duck">
+    <svg viewBox="0 0 120 120" aria-label="duck">
+        <!-- feet -->
+        <path d="M46 108 L38 118 L52 117 Z M72 108 L66 118 L80 117 Z" fill="#f59a2b" stroke="#222" stroke-width="2.5" stroke-linejoin="round"/>
+        <!-- body -->
+        <path d="M12 72 C10 50 30 44 44 50 C50 30 62 14 80 14 C98 14 104 30 98 44 L108 52 C100 56 92 56 88 54 C90 70 88 96 62 106 C34 112 14 98 12 72 Z" fill="#fff" stroke="#222" stroke-width="3.5" stroke-linejoin="round"/>
+        <!-- wing -->
+        <path d="M26 74 C36 62 56 66 60 82 C48 92 30 90 26 74 Z" fill="#f4f4f4" stroke="#222" stroke-width="2.5" stroke-linejoin="round"/>
+        <!-- beak -->
+        <path d="M92 34 C102 28 112 32 116 40 C108 46 98 46 92 42 Z" fill="#f59a2b" stroke="#222" stroke-width="3" stroke-linejoin="round"/>
+        <!-- eye -->
+        <circle cx="84" cy="32" r="3" fill="#222"/>
+    </svg>
+</div>
+
+<div class="soil"></div>
+
+<nav class="nav">
+    <div class="nav-row">
+        <button class="back-btn" id="backBtn" aria-label="go back">←</button>
+        <button class="go-btn" id="goBtn">keep walking →</button>
+    </div>
+    <div class="stop-of" id="stopOf">STOP 1 OF 4</div>
+</nav>
+
+<script>
+/* emoji fallback when a PNG is missing */
+function fallback(img, emoji) {
+    const span = document.createElement('span');
+    span.className = 'emoji';
+    span.textContent = emoji;
+    span.style.fontSize = Math.max(img.parentElement.clientHeight * 0.8, 60) + 'px';
+    img.replaceWith(span);
+}
+
+/* the 4 stops — edit the words here */
+const stops = [
+    { line: "a whole armful, just for my flower.", sub: "one because you're cute",       count: "5 / 5 picked", x: 13 },
+    { line: "every one of these reminds me of you.", sub: "one because you're kind",    count: "5 / 5 picked", x: 38 },
+    { line: "i'd pick them all again.",            sub: "one because you make me laugh", count: "5 / 5 picked", x: 62 },
+    { line: "last stop, i promise.",               sub: "one because you're mine",       count: "all picked",  x: 85 }
+];
+
+/* page the final "next →" button opens — change this to your next page */
+const NEXT_PAGE = 'next.html';
+
+let i = 0;
+const hero = document.getElementById('hero');
+const duck = document.getElementById('duck');
+const lineEl = document.getElementById('line');
+const subEl = document.getElementById('sub');
+const countEl = document.getElementById('count');
+const stepOf = document.getElementById('stepOf');
+const stopOf = document.getElementById('stopOf');
+const goBtn = document.getElementById('goBtn');
+const backBtn = document.getElementById('backBtn');
+
+function render() {
+    const s = stops[i];
+    hero.classList.add('fade');
+    duck.classList.add('walking');
+    duck.style.left = s.x + '%';
+
+    setTimeout(() => {
+        lineEl.textContent = s.line;
+        subEl.textContent = s.sub;
+        countEl.textContent = s.count;
+        hero.classList.remove('fade');
+    }, 350);
+
+    setTimeout(() => duck.classList.remove('walking'), 1100);
+
+    stepOf.textContent = (i + 1) + ' OF 4';
+    stopOf.textContent = 'STOP ' + (i + 1) + ' OF 4';
+    goBtn.textContent = i === stops.length - 1 ? 'next →' : 'keep walking →';
+}
+
+goBtn.addEventListener('click', () => {
+    if (i < stops.length - 1) { i++; render(); }
+    else { window.location.href = NEXT_PAGE; }
+});
+
+backBtn.addEventListener('click', () => {
+    if (i > 0) { i--; render(); }
+    else { window.location.href = 'index.html'; }   /* back to the gallery */
+});
+
+/* top-right buttons */
+document.querySelectorAll('[data-toggle]').forEach(b =>
+    b.addEventListener('click', () => b.classList.toggle('on'))
+);
+
+document.getElementById('heartBtn').addEventListener('click', e => {
+    const r = e.currentTarget.getBoundingClientRect();
+    for (let n = 0; n < 6; n++) {
+        const h = document.createElement('span');
+        h.className = 'burst';
+        h.textContent = ['♡', '♥', '❀'][n % 3];
+        h.style.left = (r.left + Math.random() * 30) + 'px';
+        h.style.top = (r.bottom + Math.random() * 20) + 'px';
+        h.style.fontSize = (14 + Math.random() * 12) + 'px';
+        h.style.animationDelay = (n * 0.08) + 's';
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 2000);
+    }
+});
+</script>
+
+</body>
+</html>
